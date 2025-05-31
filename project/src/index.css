@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles */
+body {
+  @apply bg-nature-gradient bg-fixed text-secondary-900 font-sans antialiased;
+}
+
+/* Glass Utility Classes */
+@layer components {
+  .glass-card {
+    @apply bg-white/30 backdrop-blur-md shadow-glass rounded-2xl border border-white/40;
+  }
+  .glass-card-hover {
+    @apply hover:bg-white/40 hover:shadow-glass-md transition-all duration-300;
+  }
+  .glass-button {
+    @apply glass-card px-4 py-2 text-secondary-900 font-medium backdrop-blur-lg;
+  }
+  .glass-input {
+    @apply glass-card px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-400 placeholder-secondary-400;
+  }
+  .glass-select {
+    @apply glass-input pr-8 appearance-none;
+  }
+  .theme-button {
+    @apply bg-gradient-to-br from-primary-400 to-primary-600 text-white font-medium shadow-lg rounded-xl px-4 py-2 hover:from-primary-500 hover:to-primary-700 transition-all duration-300;
+  }
+
+  /* Hover Lift */
+  .hover-lift {
+    @apply transition-transform duration-300 ease-out transform hover:-translate-y-1 hover:shadow-glass-md;
+  }
+}
+
+/* Animation stagger */
+@layer components {
+  .fade-in-stagger {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInStagger 0.6s ease-out forwards;
+  }
+}
+
+@keyframes fadeInStagger {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#dcfce7;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#bbf7d0;stop-opacity:0.6" />
+    </linearGradient>
+    
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#86efac;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#4ade80;stop-opacity:0.1" />
+    </linearGradient>
+    
+    <radialGradient id="circleGradient">
+      <stop offset="0%" style="stop-color:#bbf7d0;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#86efac;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Patterns -->
+    <pattern id="hexPattern" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+      <polygon points="30,0 45,8.66 45,26.34 30,35 15,26.34 15,8.66" fill="none" stroke="#86efac" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+    
+    <pattern id="leafPattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <path d="M30,60 Q40,40 30,20 Q20,40 30,60 M30,40 L20,35 M30,45 L40,40 M30,30 L22,25 M30,35 L38,30" 
+            fill="none" stroke="#4ade80" stroke-width="0.8" opacity="0.15"/>
+      <path d="M90,90 Q100,70 90,50 Q80,70 90,90 M90,70 L80,65 M90,75 L100,70 M90,60 L82,55 M90,65 L98,60" 
+            fill="none" stroke="#4ade80" stroke-width="0.8" opacity="0.15" transform="rotate(45 90 70)"/>
+      <path d="M60,30 Q70,10 60,-10 Q50,10 60,30 M60,10 L50,5 M60,15 L70,10 M60,0 L52,-5 M60,5 L68,0" 
+            fill="none" stroke="#4ade80" stroke-width="0.8" opacity="0.15" transform="rotate(-30 60 10)"/>
+    </pattern>
+    
+    <pattern id="dotsPattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="1.5" fill="#86efac" opacity="0.2"/>
+    </pattern>
+    
+    <!-- Masks -->
+    <mask id="fadeMask">
+      <linearGradient id="fadeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:white;stop-opacity:0" />
+        <stop offset="50%" style="stop-color:white;stop-opacity:0.5" />
+        <stop offset="100%" style="stop-color:white;stop-opacity:1" />
+      </linearGradient>
+      <rect width="1440" height="1024" fill="url(#fadeGradient)"/>
+    </mask>
+  </defs>
+  
+  <!-- Base gradient background -->
+  <rect width="1440" height="1024" fill="url(#mainGradient)" opacity="0.3"/>
+  
+  <!-- Organic wave layers -->
+  <g opacity="0.2">
+    <path d="M0,600 Q360,550 720,600 T1440,600 L1440,1024 L0,1024 Z" fill="#bbf7d0" opacity="0.3"/>
+    <path d="M0,700 Q360,650 720,700 T1440,700 L1440,1024 L0,1024 Z" fill="#86efac" opacity="0.25"/>
+    <path d="M0,800 Q360,750 720,800 T1440,800 L1440,1024 L0,1024 Z" fill="#4ade80" opacity="0.2"/>
+  </g>
+  
+  <!-- Hexagonal pattern overlay -->
+  <g mask="url(#fadeMask)">
+    <rect width="1440" height="1024" fill="url(#hexPattern)"/>
+  </g>
+  
+  <!-- Leaf pattern scattered -->
+  <g opacity="0.3">
+    <rect width="1440" height="600" fill="url(#leafPattern)"/>
+  </g>
+  
+  <!-- Circular elements for depth -->
+  <g opacity="0.15">
+    <circle cx="200" cy="300" r="150" fill="url(#circleGradient)"/>
+    <circle cx="800" cy="500" r="200" fill="url(#circleGradient)"/>
+    <circle cx="1200" cy="200" r="180" fill="url(#circleGradient)"/>
+    <circle cx="400" cy="700" r="120" fill="url(#circleGradient)"/>
+    <circle cx="1000" cy="800" r="160" fill="url(#circleGradient)"/>
+  </g>
+  
+  <!-- Dot pattern overlay -->
+  <g opacity="0.5">
+    <rect width="1440" height="1024" fill="url(#dotsPattern)"/>
+  </g>
+  
+  <!-- Tree branch fractals -->
+  <g opacity="0.1">
+    <path d="M100,1024 L100,900 M100,900 L80,850 M100,900 L120,850 M80,850 L70,820 M80,850 L90,820 M120,850 L110,820 M120,850 L130,820"
+          stroke="#4ade80" stroke-width="2" fill="none"/>
+    <path d="M300,1024 L300,920 M300,920 L280,870 M300,920 L320,870 M280,870 L270,840 M280,870 L290,840 M320,870 L310,840 M320,870 L330,840"
+          stroke="#4ade80" stroke-width="2" fill="none" transform="rotate(15 300 920)"/>
+    <path d="M1300,1024 L1300,880 M1300,880 L1280,830 M1300,880 L1320,830 M1280,830 L1270,800 M1280,830 L1290,800 M1320,830 L1310,800 M1320,830 L1330,800"
+          stroke="#4ade80" stroke-width="2" fill="none" transform="rotate(-20 1300 880)"/>
+  </g>
+  
+  <!-- Molecular structure patterns -->
+  <g opacity="0.08">
+    <circle cx="600" cy="400" r="8" fill="#86efac"/>
+    <circle cx="650" cy="420" r="8" fill="#86efac"/>
+    <circle cx="700" cy="400" r="8" fill="#86efac"/>
+    <circle cx="650" cy="380" r="8" fill="#86efac"/>
+    <line x1="600" y1="400" x2="650" y2="420" stroke="#86efac" stroke-width="1"/>
+    <line x1="650" y1="420" x2="700" y2="400" stroke="#86efac" stroke-width="1"/>
+    <line x1="700" y1="400" x2="650" y2="380" stroke="#86efac" stroke-width="1"/>
+    <line x1="650" y1="380" x2="600" y2="400" stroke="#86efac" stroke-width="1"/>
+    
+    <circle cx="900" cy="600" r="8" fill="#86efac"/>
+    <circle cx="950" cy="620" r="8" fill="#86efac"/>
+    <circle cx="1000" cy="600" r="8" fill="#86efac"/>
+    <circle cx="950" cy="580" r="8" fill="#86efac"/>
+    <line x1="900" y1="600" x2="950" y2="620" stroke="#86efac" stroke-width="1"/>
+    <line x1="950" y1="620" x2="1000" y2="600" stroke="#86efac" stroke-width="1"/>
+    <line x1="1000" y1="600" x2="950" y2="580" stroke="#86efac" stroke-width="1"/>
+    <line x1="950" y1="580" x2="900" y2="600" stroke="#86efac" stroke-width="1"/>
+  </g>
+  
+  <!-- Topographic contour lines -->
+  <g opacity="0.06">
+    <path d="M0,850 Q200,820 400,850 T800,850 Q1000,820 1200,850 L1440,850" fill="none" stroke="#4ade80" stroke-width="1"/>
+    <path d="M0,900 Q200,870 400,900 T800,900 Q1000,870 1200,900 L1440,900" fill="none" stroke="#4ade80" stroke-width="1"/>
+    <path d="M0,950 Q200,920 400,950 T800,950 Q1000,920 1200,950 L1440,950" fill="none" stroke="#4ade80" stroke-width="1"/>
+  </g>
+  
+  <!-- Floating particles -->
+  <g opacity="0.2">
+    <circle cx="150" cy="200" r="2" fill="#86efac">
+      <animate attributeName="cy" values="200;180;200" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="350" cy="300" r="3" fill="#bbf7d0">
+      <animate attributeName="cy" values="300;280;300" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="550" cy="150" r="2" fill="#86efac">
+      <animate attributeName="cy" values="150;130;150" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750" cy="250" r="3" fill="#bbf7d0">
+      <animate attributeName="cy" values="250;230;250" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="950" cy="350" r="2" fill="#86efac">
+      <animate attributeName="cy" values="350;330;350" dur="5.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1150" cy="200" r="3" fill="#bbf7d0">
+      <animate attributeName="cy" values="200;180;200" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1350" cy="300" r="2" fill="#86efac">
+      <animate attributeName="cy" values="300;280;300" dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
