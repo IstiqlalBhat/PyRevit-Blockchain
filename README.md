@@ -26,10 +26,8 @@ npm install
 
 2. Create a `.env` file in the root directory with the following contents:
 ```
-INFURA_API_KEY=your_infura_api_key
-PRIVATE_KEY=your_wallet_private_key
-CONTRACT_ADDRESS=your_deployed_contract_address
-NETWORK=your_preferred_network
+VITE_CONTRACT_ADDRESS="Enter Contract Address"
+VITE_NETWORK_ID=5777
 ```
 
 3. Compile and deploy the smart contracts:
