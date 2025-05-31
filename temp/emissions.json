@@ -1,0 +1,269 @@
+{
+  "Steel": {
+    "volume_m3": 0.63848569655479581, 
+    "total": 13.693091945453462, 
+    "element_count": 15, 
+    "A1A3": 12.279676158990110, 
+    "mass_kg": 5012.1127179551468, 
+    "A4": 0.16038760697456469, 
+    "A5": 1.2530281794887868
+  }, 
+  "grand_total": 26.352592749029938, 
+  "Concrete": {
+    "volume_m3": 19.224000005431034, 
+    "total": 6.1363008017335874, 
+    "element_count": 10, 
+    "A1A3": 5.5365120015641391, 
+    "mass_kg": 46137.600013034491, 
+    "A4": 0.23068800006517245, 
+    "A5": 0.36910080010427593
+  }, 
+  "unclassified_elements": {}, 
+  "timestamp": 1748670957, 
+  "material_records": [
+    {
+      "element_name": "W150X13", 
+      "category": "Structural Framing", 
+      "scaled_volume": 16122, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.016122447530202994, 
+      "element_id": 1598235
+    }, 
+    {
+      "element_name": "W150X13", 
+      "category": "Structural Framing", 
+      "scaled_volume": 16187, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.016187133810981094, 
+      "element_id": 1598296
+    }, 
+    {
+      "element_name": "W150X13", 
+      "category": "Structural Framing", 
+      "scaled_volume": 16212, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.01621210044566743, 
+      "element_id": 1598333
+    }, 
+    {
+      "element_name": "W150X13", 
+      "category": "Structural Framing", 
+      "scaled_volume": 15210, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.015210030517120252, 
+      "element_id": 1598359
+    }, 
+    {
+      "element_name": "W150X13", 
+      "category": "Structural Framing", 
+      "scaled_volume": 15210, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.015210030517120528, 
+      "element_id": 1598392
+    }, 
+    {
+      "element_name": "W150X13", 
+      "category": "Structural Framing", 
+      "scaled_volume": 15210, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.015210030517120535, 
+      "element_id": 1598415
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596826
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596827
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596828
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60313, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060313354899217721, 
+      "element_id": 1596829
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60313, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060313354899217395, 
+      "element_id": 1596830
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596831
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596832
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596833
+    }, 
+    {
+      "element_name": "254x254x132UC", 
+      "category": "Structural Columns", 
+      "scaled_volume": 60529, 
+      "material_enum": 2, 
+      "material": "Steel", 
+      "volume_m3": 0.060529601916878249, 
+      "element_id": 1596834
+    }, 
+    {
+      "element_name": "150mm Foundation Slab", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 17496000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 17.496000004942847, 
+      "element_id": 1594925
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424336, 
+      "element_id": 1597443
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424286, 
+      "element_id": 1597444
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.1920000000542432, 
+      "element_id": 1597445
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.1920000000542437, 
+      "element_id": 1597446
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424317, 
+      "element_id": 1597447
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424317, 
+      "element_id": 1597448
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424342, 
+      "element_id": 1597449
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424336, 
+      "element_id": 1597450
+    }, 
+    {
+      "element_name": "800 x 800 x 450mm", 
+      "category": "Structural Foundations", 
+      "scaled_volume": 192000, 
+      "material_enum": 0, 
+      "material": "Concrete", 
+      "volume_m3": 0.19200000005424336, 
+      "element_id": 1597451
+    }, 
+    {
+      "element_name": "CLT - 150mm", 
+      "category": "Roofs", 
+      "scaled_volume": 21600000, 
+      "material_enum": 1, 
+      "material": "CLT", 
+      "volume_m3": 21.600000006102285, 
+      "element_id": 1599531
+    }
+  ], 
+  "project_id": "Revit_Model_for_Pilot_Test_1748670956", 
+  "CLT": {
+    "volume_m3": 21.600000006102285, 
+    "total": 6.5232000018428886, 
+    "element_count": 1, 
+    "A1A3": 4.7196000013333483, 
+    "mass_kg": 10800.000003051142, 
+    "A4": 1.7280000004881826, 
+    "A5": 0.075600000021357999
+  }
+}
