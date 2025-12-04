@@ -1,13 +1,4 @@
 # my_web3_script.py (CPython)
-<<<<<<< HEAD
-# Final optimized version for EmbodiedCarbonLedgerV2 smart contract
-
-import sys
-import json
-import time
-from web3 import Web3
-
-=======
 # Secure version for EmbodiedCarbonLedgerV2 smart contract
 # Uses environment variables for sensitive configuration
 
@@ -175,14 +166,11 @@ def verify_data_integrity(data, expected_hash):
     return computed == expected_hash, computed
 
 
->>>>>>> master
 def main(json_file):
     print("=" * 60)
     print("🏗️  EMBODIED CARBON BLOCKCHAIN UPLOADER")
     print("=" * 60)
     
-<<<<<<< HEAD
-=======
     # Load configuration
     try:
         config = Config()
@@ -190,7 +178,6 @@ def main(json_file):
         print(f"❌ Configuration error: {e}")
         return
     
->>>>>>> master
     try:
         # 1) Read the JSON payload containing the emission data
         with open(json_file, "r") as f:
@@ -199,10 +186,6 @@ def main(json_file):
         print(f"📁 Loaded data from: {json_file}")
         print(f"📊 Project ID: {data.get('project_id', 'No project ID')}")
         
-<<<<<<< HEAD
-        material_records = data.get("material_records", [])
-        print(f"📋 Total records to upload: {len(material_records)}")
-=======
         # 2) Data integrity verification
         if config.enable_integrity_check:
             print("\n🔒 DATA INTEGRITY CHECK")
@@ -235,7 +218,6 @@ def main(json_file):
         
         material_records = data.get("material_records", [])
         print(f"\n📋 Total records to upload: {len(material_records)}")
->>>>>>> master
         
         # Display material breakdown
         materials_summary = {}
@@ -246,23 +228,14 @@ def main(json_file):
         for material, count in materials_summary.items():
             print(f"   • {material}: {count} elements")
 
-<<<<<<< HEAD
-        # 2) Connect to local Ethereum node
-        provider_url = "http://127.0.0.1:7545"
-=======
         # 3) Connect to Ethereum node
         provider_url = config.provider_url
->>>>>>> master
         print(f"\n🌐 Connecting to Ethereum node: {provider_url}")
         
         w3 = Web3(Web3.HTTPProvider(provider_url))
         if not w3.is_connected():
             print("❌ Could not connect to Ethereum node")
-<<<<<<< HEAD
-            print("   Make sure Ganache is running on 127.0.0.1:7545")
-=======
             print(f"   Make sure your Ethereum node is running at {provider_url}")
->>>>>>> master
             return
 
         print("✅ Connected to Ethereum node")
@@ -275,23 +248,6 @@ def main(json_file):
         except Exception:
             pass
 
-<<<<<<< HEAD
-        # 3) Read the contract ABI
-        try:
-            with open("C:\\scripts\\contract_abi.json", "r") as f:
-                contract_abi = json.load(f)
-            print("✅ Contract ABI loaded successfully")
-        except FileNotFoundError:
-            print("❌ Could not find contract_abi.json at C:\\scripts\\")
-            print("   Please ensure the ABI file is in the correct location")
-            return
-        except json.JSONDecodeError:
-            print("❌ Invalid JSON in contract_abi.json")
-            return
-
-        # 4) Configure contract details
-        contract_address = "0x799222FfE5Bc157972C7FbA9521F1568e525710e"
-=======
         # 4) Read the contract ABI
         abi_path = config.contract_abi_path
         try:
@@ -308,7 +264,6 @@ def main(json_file):
 
         # 5) Configure contract
         contract_address = config.contract_address
->>>>>>> master
         
         try:
             contract = w3.eth.contract(address=contract_address, abi=contract_abi)
@@ -317,18 +272,12 @@ def main(json_file):
             print(f"❌ Error loading contract: {e}")
             return
 
-<<<<<<< HEAD
-        # 5) Account configuration
-        sender_address = "0x8Be4444b3f896A636214db0E4D0E73B6Be3515A1"
-        private_key    = "0x47c3ab69c55cdae62ee722ff514538d8c771027b2fa994f23032b379922491fc"
-=======
         # 6) Account configuration from environment
         sender_address = config.sender_address
         private_key = config.private_key
         gas_price_gwei = config.gas_price_gwei
         
         print(f"👤 Sender address: {sender_address}")
->>>>>>> master
 
         # Check account balance
         try:
@@ -341,11 +290,7 @@ def main(json_file):
         except Exception as e:
             print(f"⚠️  Could not check account balance: {e}")
 
-<<<<<<< HEAD
-        # 6) Check authorization
-=======
         # 7) Check authorization
->>>>>>> master
         print(f"\n🔐 Checking authorization for {sender_address}")
         
         try:
@@ -359,30 +304,18 @@ def main(json_file):
         except Exception as e:
             print(f"⚠️  Could not check authorization: {e}")
 
-<<<<<<< HEAD
-        # 7) Get project ID
-=======
         # 8) Get project ID
->>>>>>> master
         project_id = data.get("project_id", "")
         if not project_id:
             project_id = f"revit_export_{int(time.time())}"
             print(f"📝 No project ID found, using: {project_id}")
 
-<<<<<<< HEAD
-        # 8) Store complete JSON summary first
-=======
         # 9) Store complete JSON summary first
->>>>>>> master
         print(f"\n📤 STEP 1: Storing project summary")
         print("-" * 40)
         
         # Create summary payload (exclude individual records to save gas)
-<<<<<<< HEAD
-        summary_data = {k: v for k, v in data.items() if k != "material_records"}
-=======
         summary_data = {k: v for k, v in data.items() if k not in ('material_records', '_data_hash')}
->>>>>>> master
         summary_data["total_records"] = len(material_records)
         payload_str = json.dumps(summary_data, separators=(',', ':'))  # Compact JSON
         
@@ -438,11 +371,7 @@ def main(json_file):
                 'from': sender_address,
                 'nonce': nonce,
                 'gas': gas_limit, 
-<<<<<<< HEAD
-                'gasPrice': w3.to_wei('10', 'gwei')
-=======
                 'gasPrice': w3.to_wei(str(gas_price_gwei), 'gwei')
->>>>>>> master
             })
 
             # Sign and send
@@ -485,11 +414,7 @@ def main(json_file):
                 print("🛑 Stopping upload due to error")
                 return
 
-<<<<<<< HEAD
-        # 9) Store individual material records
-=======
         # 10) Store individual material records
->>>>>>> master
         if material_records:
             print(f"\n📤 STEP 2: Storing {len(material_records)} individual material records")
             print("-" * 60)
@@ -533,11 +458,7 @@ def main(json_file):
                         'from': sender_address,
                         'nonce': nonce,
                         'gas': gas_limit,
-<<<<<<< HEAD
-                        'gasPrice': w3.to_wei('10', 'gwei')
-=======
                         'gasPrice': w3.to_wei(str(gas_price_gwei), 'gwei')
->>>>>>> master
                     })
 
                     # Sign and send
@@ -572,11 +493,7 @@ def main(json_file):
             print(f"📊 Success rate: {(successful_uploads/len(material_records)*100):.1f}%")
             print(f"⛽ Total gas used: {total_gas_used:,}")
 
-<<<<<<< HEAD
-        # 10) Contract verification and statistics
-=======
         # 11) Contract verification and statistics
->>>>>>> master
         print(f"\n🔍 VERIFICATION & STATISTICS")
         print("-" * 40)
         
@@ -618,42 +535,27 @@ def main(json_file):
         print("🎉 UPLOAD PROCESS COMPLETED SUCCESSFULLY!")
         print("🔗 All data is now permanently stored on the blockchain")
         print(f"📊 Project ID: {project_id}")
-<<<<<<< HEAD
-        print("='*60")
-=======
         print("=" * 60)
->>>>>>> master
 
     except FileNotFoundError:
         print(f"❌ Error: Could not find file {json_file}")
     except json.JSONDecodeError:
         print(f"❌ Error: Invalid JSON in file {json_file}")
-<<<<<<< HEAD
-=======
     except ValueError as e:
         print(f"❌ Configuration Error: {e}")
->>>>>>> master
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
         import traceback
         traceback.print_exc()
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python my_web3_script.py <path_to_json_file>")
         print("Example: python my_web3_script.py C:\\temp\\emissions.json")
-<<<<<<< HEAD
-    else:
-        main(sys.argv[1])
-=======
         print("\n📝 Configuration:")
         print("   1. Copy env.template to .env")
         print("   2. Fill in your contract address, sender address, and private key")
         print("   3. Run this script with the JSON file path")
     else:
         main(sys.argv[1])
->>>>>>> master

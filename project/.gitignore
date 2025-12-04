@@ -23,7 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 .env
-<<<<<<< HEAD
-=======
 .env.local
->>>>>>> master

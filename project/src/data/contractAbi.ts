@@ -1,47 +1,14 @@
 // ABI for EmbodiedCarbonLedgerV2 smart contract
-<<<<<<< HEAD
-const contractAbi = [
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "uploader",
-        "type": "address"
-      }
-    ],
-    "name": "authorizeUploader",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "uploader",
-        "type": "address"
-      }
-    ],
-    "name": "deauthorizeUploader",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-=======
 // Auto-generated from compiled contract - DO NOT EDIT MANUALLY
 // Note: Contract uses British spelling (authorise, not authorize)
 
 const contractAbi = [
   {
->>>>>>> master
     "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
-<<<<<<< HEAD
-=======
     "inputs": [],
     "name": "EmptyJSON",
     "type": "error"
@@ -67,7 +34,6 @@ const contractAbi = [
     "type": "error"
   },
   {
->>>>>>> master
     "anonymous": false,
     "inputs": [
       {
@@ -151,11 +117,7 @@ const contractAbi = [
         "type": "address"
       }
     ],
-<<<<<<< HEAD
-    "name": "UploaderAuthorized",
-=======
     "name": "UploaderAuthorised",
->>>>>>> master
     "type": "event"
   },
   {
@@ -168,11 +130,7 @@ const contractAbi = [
         "type": "address"
       }
     ],
-<<<<<<< HEAD
-    "name": "UploaderDeauthorized",
-=======
     "name": "UploaderDeauthorised",
->>>>>>> master
     "type": "event"
   },
   {
@@ -183,11 +141,7 @@ const contractAbi = [
         "type": "address"
       }
     ],
-<<<<<<< HEAD
-    "name": "authorizedUploaders",
-=======
     "name": "authorisedUploaders",
->>>>>>> master
     "outputs": [
       {
         "internalType": "bool",
@@ -201,8 +155,6 @@ const contractAbi = [
   {
     "inputs": [
       {
-<<<<<<< HEAD
-=======
         "internalType": "address",
         "name": "uploader",
         "type": "address"
@@ -216,7 +168,6 @@ const contractAbi = [
   {
     "inputs": [
       {
->>>>>>> master
         "internalType": "enum EmbodiedCarbonLedgerV2.Material",
         "name": "material",
         "type": "uint8"
@@ -254,8 +205,6 @@ const contractAbi = [
     "type": "function"
   },
   {
-<<<<<<< HEAD
-=======
     "inputs": [
       {
         "internalType": "address",
@@ -269,7 +218,6 @@ const contractAbi = [
     "type": "function"
   },
   {
->>>>>>> master
     "inputs": [],
     "name": "getGlobalStats",
     "outputs": [
@@ -317,8 +265,6 @@ const contractAbi = [
     "type": "function"
   },
   {
-<<<<<<< HEAD
-=======
     "inputs": [],
     "name": "jsonRecordCount",
     "outputs": [
@@ -332,7 +278,6 @@ const contractAbi = [
     "type": "function"
   },
   {
->>>>>>> master
     "inputs": [
       {
         "internalType": "uint256",
@@ -368,11 +313,7 @@ const contractAbi = [
   },
   {
     "inputs": [],
-<<<<<<< HEAD
-    "name": "jsonRecordCount",
-=======
     "name": "materialRecordCount",
->>>>>>> master
     "outputs": [
       {
         "internalType": "uint256",
@@ -444,22 +385,6 @@ const contractAbi = [
   },
   {
     "inputs": [],
-<<<<<<< HEAD
-    "name": "materialRecordCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-=======
->>>>>>> master
     "name": "owner",
     "outputs": [
       {
@@ -659,8 +584,4 @@ const contractAbi = [
   }
 ];
 
-<<<<<<< HEAD
 export default contractAbi;
-=======
-export default contractAbi;
->>>>>>> master

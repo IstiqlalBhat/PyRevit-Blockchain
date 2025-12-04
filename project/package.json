@@ -6,15 +6,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-<<<<<<< HEAD
-    "preview": "vite preview"
-=======
     "preview": "vite preview",
     "compile": "truffle compile",
     "deploy": "npm run compile && node scripts/deploy.js",
     "deploy:quick": "node scripts/deploy.js",
     "setup": "node scripts/setup.js"
->>>>>>> master
   },
   "dependencies": {
     "@metamask/providers": "^22.1.0",

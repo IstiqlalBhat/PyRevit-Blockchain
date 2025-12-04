@@ -10,13 +10,9 @@ interface Web3ContextType {
   isConnected: boolean;
   connecting: boolean;
   error: string | null;
-<<<<<<< HEAD
-  connectWallet: () => Promise<void>;
-=======
   networkInfo: string | null;
   connectWallet: () => Promise<void>;
   connectToGanache: () => Promise<void>;
->>>>>>> master
 }
 
 const defaultContext: Web3ContextType = {
@@ -26,13 +22,9 @@ const defaultContext: Web3ContextType = {
   isConnected: false,
   connecting: false,
   error: null,
-<<<<<<< HEAD
-  connectWallet: async () => {},
-=======
   networkInfo: null,
   connectWallet: async () => {},
   connectToGanache: async () => {},
->>>>>>> master
 };
 
 const Web3Context = createContext<Web3ContextType>(defaultContext);
@@ -43,12 +35,9 @@ interface Web3ProviderProps {
   children: ReactNode;
 }
 
-<<<<<<< HEAD
-=======
 // Ganache default RPC URL
 const GANACHE_URL = import.meta.env.VITE_ETHEREUM_PROVIDER_URL || 'http://127.0.0.1:7545';
 
->>>>>>> master
 export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [contract, setContract] = useState<any>(null);
@@ -56,12 +45,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [connecting, setConnecting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-<<<<<<< HEAD
-
-  // Contract address
-  const contractAddress = '0x799222FfE5Bc157972C7FbA9521F1568e525710e';
-
-=======
   const [networkInfo, setNetworkInfo] = useState<string | null>(null);
 
   // Contract address from environment variable
@@ -177,7 +160,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
    * Connect via MetaMask
    * Make sure MetaMask is configured to connect to Ganache network
    */
->>>>>>> master
   const connectWallet = async () => {
     setConnecting(true);
     setError(null);
@@ -186,8 +168,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       // Check if MetaMask is installed
       if (window.ethereum) {
         const web3Instance = new Web3(window.ethereum as any);
-<<<<<<< HEAD
-=======
         
         // Get network info
         const networkId = await web3Instance.eth.net.getId();
@@ -201,14 +181,11 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
           console.warn('Make sure MetaMask is connected to Ganache (localhost:7545)');
         }
         
->>>>>>> master
         setWeb3(web3Instance);
         
         // Request account access
         const accounts = await (window.ethereum as any).request({ method: 'eth_requestAccounts' });
         setAccount(accounts[0]);
-<<<<<<< HEAD
-=======
         console.log('MetaMask account:', accounts[0]);
         
         // Verify contract exists
@@ -223,22 +200,12 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
             `Make sure MetaMask is connected to Ganache (localhost:7545)`
           );
         }
->>>>>>> master
         
         // Initialize contract
         const contractInstance = new web3Instance.eth.Contract(
           contractAbi as AbiItem[],
           contractAddress
         );
-<<<<<<< HEAD
-        setContract(contractInstance);
-        setIsConnected(true);
-      } else {
-        setError('Please install MetaMask to use this application');
-      }
-    } catch (err: any) {
-      setError(err.message || 'Failed to connect to wallet');
-=======
         
         setContract(contractInstance);
         setIsConnected(true);
@@ -258,7 +225,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       } catch (ganacheErr) {
         // Keep original error
       }
->>>>>>> master
     } finally {
       setConnecting(false);
     }
@@ -288,25 +254,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     };
   }, []);
 
-<<<<<<< HEAD
-  // Attempt eager connection on mount
-  useEffect(() => {
-    (async () => {
-      if (window.ethereum && !isConnected && !connecting) {
-        try {
-          const accounts = await (window.ethereum as any).request({ method: 'eth_accounts' });
-          if (accounts && accounts.length > 0) {
-            await connectWallet();
-          }
-        } catch (err) {
-          console.error('Eager connect failed', err);
-        }
-      }
-    })();
-  }, []);
-
-=======
->>>>>>> master
   const value = {
     web3,
     contract,
@@ -314,13 +261,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     isConnected,
     connecting,
     error,
-<<<<<<< HEAD
-    connectWallet,
-  };
-
-  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
-};
-=======
     networkInfo,
     connectWallet,
     connectToGanache,
@@ -328,4 +268,3 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
 
   return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 };
->>>>>>> master
