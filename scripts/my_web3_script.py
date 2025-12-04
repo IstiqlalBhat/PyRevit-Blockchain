@@ -132,15 +132,18 @@ class Config:
 def normalize_for_hash(obj):
     """
     Normalize data for consistent hashing across IronPython and CPython.
-    Rounds floats to 6 decimal places to avoid precision differences.
+    Converts floats to fixed-precision strings to avoid floating-point differences.
     """
     if isinstance(obj, dict):
         return {k: normalize_for_hash(v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [normalize_for_hash(item) for item in obj]
     elif isinstance(obj, float):
-        # Round to 6 decimal places for consistency
-        return round(obj, 6)
+        # Use string formatting for consistent representation across Python versions
+        # Format to 6 decimal places and strip trailing zeros
+        formatted = f"{obj:.6f}".rstrip('0').rstrip('.')
+        # Convert back to number for JSON serialization
+        return float(formatted) if '.' in formatted else int(formatted)
     else:
         return obj
 

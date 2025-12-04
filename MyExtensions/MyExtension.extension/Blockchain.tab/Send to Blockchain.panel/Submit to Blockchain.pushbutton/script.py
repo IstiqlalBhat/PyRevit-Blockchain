@@ -120,22 +120,49 @@ def get_element_id_value(element_id):
             return int(str(element_id))
 
 def normalize_for_hash(obj):
+    """
+    Normalize data for consistent hashing across IronPython and CPython.
+    Converts floats to fixed-precision strings to avoid floating-point differences.
+    """
     if isinstance(obj, dict):
         return {k: normalize_for_hash(v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [normalize_for_hash(item) for item in obj]
     elif isinstance(obj, float):
-        return round(obj, 6)
+        # Use string formatting for consistent representation across Python versions
+        # Format to 6 decimal places and strip trailing zeros
+        formatted = "{:.6f}".format(obj).rstrip('0').rstrip('.')
+        # Convert back to number for JSON serialization
+        return float(formatted) if '.' in formatted else int(formatted)
     else:
         return obj
 
 def compute_data_hash(data):
+    """
+    Compute SHA256 hash of data in a way that's consistent across IronPython and CPython.
+    Uses string formatting for floats to avoid floating-point precision differences.
+    """
     try:
         normalized = normalize_for_hash(data)
         canonical = json.dumps(normalized, sort_keys=True, separators=(',', ':'))
         return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
     except Exception as e:
         print("Hash computation failed: {}".format(e))
+        return "hash_error"
+
+def compute_hash_from_file(filepath):
+    """
+    Compute hash by reading JSON file and re-serializing consistently.
+    This ensures the hash matches what other Python versions will compute.
+    """
+    try:
+        with open(filepath, 'r') as f:
+            data = json.load(f)
+        # Remove _data_hash if present (shouldn't be when called, but safety check)
+        data_copy = {k: v for k, v in data.items() if k != '_data_hash'}
+        return compute_data_hash(data_copy)
+    except Exception as e:
+        print("Hash from file failed: {}".format(e))
         return "hash_error"
 
 def make_file_readonly(filepath):
@@ -319,11 +346,6 @@ def main():
     results["material_records"] = material_records
     results["timestamp"] = int(time.time())
     
-    if CONFIG.enable_integrity_check:
-        data_hash = compute_data_hash(results)
-        results["_data_hash"] = data_hash
-        print("\nData integrity hash: {}".format(data_hash[:16] + "..."))
-        
     out_path = CONFIG.emissions_output_path
     out_dir = os.path.dirname(out_path)
     if not os.path.isdir(out_dir):
@@ -331,9 +353,21 @@ def main():
         
     if os.path.exists(out_path):
         make_file_writable(out_path)
-        
+    
+    # First write without hash to compute hash from file (ensures cross-Python compatibility)
     with open(out_path, "w") as fp:
         json.dump(results, fp, indent=2)
+    
+    # Now compute hash from the written file and update it
+    if CONFIG.enable_integrity_check:
+        data_hash = compute_hash_from_file(out_path)
+        results["_data_hash"] = data_hash
+        
+        # Rewrite with the hash included
+        with open(out_path, "w") as fp:
+            json.dump(results, fp, indent=2)
+        print("\nData integrity hash: {}".format(data_hash[:16] + "..."))
+    
     print("\nSaved JSON to: {}".format(out_path))
     
     if CONFIG.protect_emissions_file:
