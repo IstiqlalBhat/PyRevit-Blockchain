@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, ChevronDown, Leaf } from 'lucide-react';
 import { truncateAddress } from '../../utils/formatters';
 import { useEmissionUnit } from '../../context/EmissionUnitContext';
 
@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-4">
             <button
               type="button"
-              className="text-secondary-600 hover:text-primary-600 focus:outline-none transition-colors duration-200 md:hidden"
+              className="text-slate-600 hover:text-primary-600 focus:outline-none transition-colors duration-200 md:hidden"
               onClick={toggleSidebar}
             >
               <span className="sr-only">Open sidebar</span>
@@ -34,10 +34,13 @@ const Header: React.FC<HeaderProps> = ({
             </button>
             
             <div className="flex items-center gap-3">
-              <span className="text-primary-600 animate-float">
-                <Sparkles className="h-8 w-8" />
-              </span>
-              <h1 className="text-xl font-bold text-secondary-900 bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-xl blur-lg opacity-40 animate-pulse-slow"></div>
+                <div className="relative p-2 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl shadow-green">
+                  <Leaf className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <h1 className="text-xl font-bold font-display text-gradient-vibrant">
                 Carbon Ledger
               </h1>
             </div>
@@ -58,11 +61,14 @@ const Header: React.FC<HeaderProps> = ({
             </select>
 
             {isConnected && account ? (
-              <div className="glass-button glass-card-hover flex items-center gap-2 py-2 px-4">
-                <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
-                <span className="hidden sm:inline text-secondary-600 text-sm">Connected:</span>
-                <span className="text-secondary-900 font-medium">{truncateAddress(account)}</span>
-                <ChevronDown className="h-4 w-4 text-secondary-400" />
+              <div className="glass-card-green px-4 py-2.5 flex items-center gap-2 cursor-pointer hover:shadow-green transition-all duration-300">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-500"></span>
+                </span>
+                <span className="hidden sm:inline text-slate-600 text-sm">Connected:</span>
+                <span className="text-slate-800 font-semibold">{truncateAddress(account)}</span>
+                <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
             ) : (
               <button
