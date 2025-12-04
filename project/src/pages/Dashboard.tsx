@@ -8,7 +8,11 @@ import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { useEmissionUnit } from '../context/EmissionUnitContext';
 
 const Dashboard: React.FC = () => {
+<<<<<<< HEAD
   const { web3, contract, account, isConnected } = useWeb3();
+=======
+  const { web3, contract, account, isConnected, networkInfo, connectToGanache } = useWeb3();
+>>>>>>> master
   const { convert, label } = useEmissionUnit();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -63,6 +67,7 @@ const Dashboard: React.FC = () => {
       <div className="bg-white rounded-lg shadow-sm p-6 text-center">
         <div className="flex flex-col items-center justify-center py-12">
           <AlertTriangle className="h-12 w-12 text-yellow-500 mb-4" />
+<<<<<<< HEAD
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">Wallet Not Connected</h2>
           <p className="text-gray-600 max-w-md mb-6">
             Please connect your wallet to access the Carbon Ledger dashboard and track your emission data.
@@ -73,6 +78,29 @@ const Dashboard: React.FC = () => {
           >
             Connect Wallet
           </button>
+=======
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">Not Connected</h2>
+          <p className="text-gray-600 max-w-md mb-6">
+            Connect to view the Carbon Ledger dashboard and track your emission data.
+          </p>
+          <div className="flex gap-4">
+            <button
+              onClick={() => connectToGanache()}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Connect to Ganache
+            </button>
+            <button
+              onClick={() => document.dispatchEvent(new CustomEvent('open-wallet-modal'))}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+            >
+              Connect MetaMask
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 mt-4">
+            For development, use "Connect to Ganache" (no MetaMask needed)
+          </p>
+>>>>>>> master
         </div>
       </div>
     );
@@ -106,6 +134,14 @@ const Dashboard: React.FC = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+<<<<<<< HEAD
+=======
+        {networkInfo && (
+          <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+            {networkInfo}
+          </span>
+        )}
+>>>>>>> master
       </div>
 
       {/* Stats Cards */}

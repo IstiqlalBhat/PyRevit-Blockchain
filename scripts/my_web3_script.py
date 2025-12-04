@@ -1,4 +1,5 @@
 # my_web3_script.py (CPython)
+<<<<<<< HEAD
 # Final optimized version for EmbodiedCarbonLedgerV2 smart contract
 
 import sys
@@ -6,11 +7,190 @@ import json
 import time
 from web3 import Web3
 
+=======
+# Secure version for EmbodiedCarbonLedgerV2 smart contract
+# Uses environment variables for sensitive configuration
+
+import sys
+import os
+import json
+import time
+import hashlib
+from pathlib import Path
+
+# Try to load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    # Look for .env in the scripts directory
+    env_path = Path(__file__).parent / '.env'
+    if env_path.exists():
+        load_dotenv(env_path)
+    else:
+        print("⚠️  No .env file found. Using environment variables or config.json.")
+except ImportError:
+    print("⚠️  python-dotenv not installed. Using environment variables or config.json.")
+
+from web3 import Web3
+
+
+class Config:
+    """Configuration manager that loads from environment variables, config.json, or defaults."""
+    
+    # Project root directory
+    PROJECT_ROOT = Path(__file__).parent.parent  # scripts/ -> project root
+    
+    def __init__(self):
+        self.config_file = Path(__file__).parent / 'config.json'
+        self._file_config = self._load_config_file()
+    
+    def _load_config_file(self):
+        """Load configuration from config.json if it exists."""
+        if self.config_file.exists():
+            try:
+                with open(self.config_file, 'r') as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"⚠️  Could not load config.json: {e}")
+        return {}
+    
+    def get(self, env_key, config_path=None, default=None):
+        """
+        Get a configuration value with priority:
+        1. Environment variable
+        2. config.json value
+        3. Default value
+        """
+        # First try environment variable
+        value = os.environ.get(env_key)
+        if value:
+            return value
+        
+        # Then try config.json
+        if config_path and self._file_config:
+            parts = config_path.split('.')
+            obj = self._file_config
+            for part in parts:
+                if isinstance(obj, dict) and part in obj:
+                    obj = obj[part]
+                else:
+                    obj = None
+                    break
+            if obj is not None:
+                return obj
+        
+        return default
+    
+    @property
+    def provider_url(self):
+        return self.get('ETHEREUM_PROVIDER_URL', 'ethereum.provider_url', 'http://127.0.0.1:7545')
+    
+    @property
+    def contract_address(self):
+        addr = self.get('CONTRACT_ADDRESS', None, None)
+        if not addr:
+            raise ValueError(
+                "CONTRACT_ADDRESS not configured!\n"
+                "Please set it in your .env file or as an environment variable.\n"
+                "See env.template for example configuration."
+            )
+        return addr
+    
+    @property
+    def sender_address(self):
+        addr = self.get('SENDER_ADDRESS', None, None)
+        if not addr:
+            raise ValueError(
+                "SENDER_ADDRESS not configured!\n"
+                "Please set it in your .env file or as an environment variable.\n"
+                "See env.template for example configuration."
+            )
+        return addr
+    
+    @property
+    def private_key(self):
+        key = self.get('PRIVATE_KEY', None, None)
+        if not key:
+            raise ValueError(
+                "PRIVATE_KEY not configured!\n"
+                "Please set it in your .env file or as an environment variable.\n"
+                "See env.template for example configuration.\n"
+                "⚠️  NEVER hardcode private keys in source code!"
+            )
+        return key
+    
+    @property
+    def contract_abi_path(self):
+        path = self.get('CONTRACT_ABI_PATH', 'paths.contract_abi', 'contract_abi.json')
+        # If relative path, make it relative to scripts directory
+        if not os.path.isabs(path):
+            path = str(Path(__file__).parent / path)
+        return path
+    
+    @property
+    def gas_price_gwei(self):
+        return int(self.get('GAS_PRICE_GWEI', 'ethereum.gas_price_gwei', 10))
+    
+    @property
+    def enable_integrity_check(self):
+        val = self.get('ENABLE_DATA_INTEGRITY_CHECK', 'security.enable_data_integrity_check', True)
+        if isinstance(val, str):
+            return val.lower() in ('true', '1', 'yes')
+        return bool(val)
+
+
+def normalize_for_hash(obj):
+    """
+    Normalize data for consistent hashing across IronPython and CPython.
+    Rounds floats to 6 decimal places to avoid precision differences.
+    """
+    if isinstance(obj, dict):
+        return {k: normalize_for_hash(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [normalize_for_hash(item) for item in obj]
+    elif isinstance(obj, float):
+        # Round to 6 decimal places for consistency
+        return round(obj, 6)
+    else:
+        return obj
+
+
+def compute_data_hash(data):
+    """
+    Compute a SHA256 hash of the emission data for integrity verification.
+    This helps detect if the JSON file was tampered with.
+    """
+    # Normalize floats for cross-Python compatibility (IronPython vs CPython)
+    normalized = normalize_for_hash(data)
+    # Create a canonical JSON string (sorted keys, no extra whitespace)
+    canonical = json.dumps(normalized, sort_keys=True, separators=(',', ':'))
+    return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+
+def verify_data_integrity(data, expected_hash):
+    """
+    Verify that the data hash matches the expected hash.
+    Returns (is_valid, computed_hash)
+    """
+    computed = compute_data_hash(data)
+    return computed == expected_hash, computed
+
+
+>>>>>>> master
 def main(json_file):
     print("=" * 60)
     print("🏗️  EMBODIED CARBON BLOCKCHAIN UPLOADER")
     print("=" * 60)
     
+<<<<<<< HEAD
+=======
+    # Load configuration
+    try:
+        config = Config()
+    except Exception as e:
+        print(f"❌ Configuration error: {e}")
+        return
+    
+>>>>>>> master
     try:
         # 1) Read the JSON payload containing the emission data
         with open(json_file, "r") as f:
@@ -19,8 +199,43 @@ def main(json_file):
         print(f"📁 Loaded data from: {json_file}")
         print(f"📊 Project ID: {data.get('project_id', 'No project ID')}")
         
+<<<<<<< HEAD
         material_records = data.get("material_records", [])
         print(f"📋 Total records to upload: {len(material_records)}")
+=======
+        # 2) Data integrity verification
+        if config.enable_integrity_check:
+            print("\n🔒 DATA INTEGRITY CHECK")
+            print("-" * 40)
+            
+            # Check if data includes a hash from Revit
+            revit_hash = data.get('_data_hash')
+            if revit_hash:
+                # Remove the hash field before computing (it wasn't included when Revit computed it)
+                data_without_hash = {k: v for k, v in data.items() if k != '_data_hash'}
+                is_valid, computed_hash = verify_data_integrity(data_without_hash, revit_hash)
+                
+                if is_valid:
+                    print("✅ Data integrity verified - hash matches Revit export")
+                else:
+                    print("⚠️  WARNING: Data hash mismatch!")
+                    print(f"   Expected: {revit_hash}")
+                    print(f"   Computed: {computed_hash}")
+                    print("   The JSON file may have been modified after export from Revit.")
+                    
+                    response = input("   Continue anyway? (y/N): ").strip().lower()
+                    if response != 'y':
+                        print("🛑 Upload cancelled due to integrity check failure.")
+                        return
+            else:
+                print("⚠️  No hash found in data - integrity cannot be verified")
+                print("   (This is expected for data exported before integrity checking was enabled)")
+                computed_hash = compute_data_hash(data)
+                print(f"   Current data hash: {computed_hash[:16]}...")
+        
+        material_records = data.get("material_records", [])
+        print(f"\n📋 Total records to upload: {len(material_records)}")
+>>>>>>> master
         
         # Display material breakdown
         materials_summary = {}
@@ -31,14 +246,23 @@ def main(json_file):
         for material, count in materials_summary.items():
             print(f"   • {material}: {count} elements")
 
+<<<<<<< HEAD
         # 2) Connect to local Ethereum node
         provider_url = "http://127.0.0.1:7545"
+=======
+        # 3) Connect to Ethereum node
+        provider_url = config.provider_url
+>>>>>>> master
         print(f"\n🌐 Connecting to Ethereum node: {provider_url}")
         
         w3 = Web3(Web3.HTTPProvider(provider_url))
         if not w3.is_connected():
             print("❌ Could not connect to Ethereum node")
+<<<<<<< HEAD
             print("   Make sure Ganache is running on 127.0.0.1:7545")
+=======
+            print(f"   Make sure your Ethereum node is running at {provider_url}")
+>>>>>>> master
             return
 
         print("✅ Connected to Ethereum node")
@@ -51,6 +275,7 @@ def main(json_file):
         except Exception:
             pass
 
+<<<<<<< HEAD
         # 3) Read the contract ABI
         try:
             with open("C:\\scripts\\contract_abi.json", "r") as f:
@@ -66,6 +291,24 @@ def main(json_file):
 
         # 4) Configure contract details
         contract_address = "0x799222FfE5Bc157972C7FbA9521F1568e525710e"
+=======
+        # 4) Read the contract ABI
+        abi_path = config.contract_abi_path
+        try:
+            with open(abi_path, "r") as f:
+                contract_abi = json.load(f)
+            print(f"✅ Contract ABI loaded from: {abi_path}")
+        except FileNotFoundError:
+            print(f"❌ Could not find contract ABI at: {abi_path}")
+            print("   Please ensure the ABI file exists at the configured location")
+            return
+        except json.JSONDecodeError:
+            print(f"❌ Invalid JSON in contract ABI file: {abi_path}")
+            return
+
+        # 5) Configure contract
+        contract_address = config.contract_address
+>>>>>>> master
         
         try:
             contract = w3.eth.contract(address=contract_address, abi=contract_abi)
@@ -74,9 +317,18 @@ def main(json_file):
             print(f"❌ Error loading contract: {e}")
             return
 
+<<<<<<< HEAD
         # 5) Account configuration
         sender_address = "0x8Be4444b3f896A636214db0E4D0E73B6Be3515A1"
         private_key    = "0x47c3ab69c55cdae62ee722ff514538d8c771027b2fa994f23032b379922491fc"
+=======
+        # 6) Account configuration from environment
+        sender_address = config.sender_address
+        private_key = config.private_key
+        gas_price_gwei = config.gas_price_gwei
+        
+        print(f"👤 Sender address: {sender_address}")
+>>>>>>> master
 
         # Check account balance
         try:
@@ -89,7 +341,11 @@ def main(json_file):
         except Exception as e:
             print(f"⚠️  Could not check account balance: {e}")
 
+<<<<<<< HEAD
         # 6) Check authorization
+=======
+        # 7) Check authorization
+>>>>>>> master
         print(f"\n🔐 Checking authorization for {sender_address}")
         
         try:
@@ -103,18 +359,30 @@ def main(json_file):
         except Exception as e:
             print(f"⚠️  Could not check authorization: {e}")
 
+<<<<<<< HEAD
         # 7) Get project ID
+=======
+        # 8) Get project ID
+>>>>>>> master
         project_id = data.get("project_id", "")
         if not project_id:
             project_id = f"revit_export_{int(time.time())}"
             print(f"📝 No project ID found, using: {project_id}")
 
+<<<<<<< HEAD
         # 8) Store complete JSON summary first
+=======
+        # 9) Store complete JSON summary first
+>>>>>>> master
         print(f"\n📤 STEP 1: Storing project summary")
         print("-" * 40)
         
         # Create summary payload (exclude individual records to save gas)
+<<<<<<< HEAD
         summary_data = {k: v for k, v in data.items() if k != "material_records"}
+=======
+        summary_data = {k: v for k, v in data.items() if k not in ('material_records', '_data_hash')}
+>>>>>>> master
         summary_data["total_records"] = len(material_records)
         payload_str = json.dumps(summary_data, separators=(',', ':'))  # Compact JSON
         
@@ -170,7 +438,11 @@ def main(json_file):
                 'from': sender_address,
                 'nonce': nonce,
                 'gas': gas_limit, 
+<<<<<<< HEAD
                 'gasPrice': w3.to_wei('10', 'gwei')
+=======
+                'gasPrice': w3.to_wei(str(gas_price_gwei), 'gwei')
+>>>>>>> master
             })
 
             # Sign and send
@@ -213,7 +485,11 @@ def main(json_file):
                 print("🛑 Stopping upload due to error")
                 return
 
+<<<<<<< HEAD
         # 9) Store individual material records
+=======
+        # 10) Store individual material records
+>>>>>>> master
         if material_records:
             print(f"\n📤 STEP 2: Storing {len(material_records)} individual material records")
             print("-" * 60)
@@ -257,7 +533,11 @@ def main(json_file):
                         'from': sender_address,
                         'nonce': nonce,
                         'gas': gas_limit,
+<<<<<<< HEAD
                         'gasPrice': w3.to_wei('10', 'gwei')
+=======
+                        'gasPrice': w3.to_wei(str(gas_price_gwei), 'gwei')
+>>>>>>> master
                     })
 
                     # Sign and send
@@ -292,7 +572,11 @@ def main(json_file):
             print(f"📊 Success rate: {(successful_uploads/len(material_records)*100):.1f}%")
             print(f"⛽ Total gas used: {total_gas_used:,}")
 
+<<<<<<< HEAD
         # 10) Contract verification and statistics
+=======
+        # 11) Contract verification and statistics
+>>>>>>> master
         print(f"\n🔍 VERIFICATION & STATISTICS")
         print("-" * 40)
         
@@ -334,20 +618,42 @@ def main(json_file):
         print("🎉 UPLOAD PROCESS COMPLETED SUCCESSFULLY!")
         print("🔗 All data is now permanently stored on the blockchain")
         print(f"📊 Project ID: {project_id}")
+<<<<<<< HEAD
         print("='*60")
+=======
+        print("=" * 60)
+>>>>>>> master
 
     except FileNotFoundError:
         print(f"❌ Error: Could not find file {json_file}")
     except json.JSONDecodeError:
         print(f"❌ Error: Invalid JSON in file {json_file}")
+<<<<<<< HEAD
+=======
+    except ValueError as e:
+        print(f"❌ Configuration Error: {e}")
+>>>>>>> master
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
         import traceback
         traceback.print_exc()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python my_web3_script.py <path_to_json_file>")
         print("Example: python my_web3_script.py C:\\temp\\emissions.json")
+<<<<<<< HEAD
     else:
         main(sys.argv[1])
+=======
+        print("\n📝 Configuration:")
+        print("   1. Copy env.template to .env")
+        print("   2. Fill in your contract address, sender address, and private key")
+        print("   3. Run this script with the JSON file path")
+    else:
+        main(sys.argv[1])
+>>>>>>> master

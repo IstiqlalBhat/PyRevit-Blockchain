@@ -1,0 +1,14 @@
+# Environment files (contain secrets!)
+# NEVER commit .env files - they contain private keys!
+.env
+.env.local
+.env.*.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+

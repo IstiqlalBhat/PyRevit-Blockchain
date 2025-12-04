@@ -7,8 +7,13 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+<<<<<<< HEAD
   define: {
     'import.meta.env.VITE_CONTRACT_ADDRESS': JSON.stringify('0x17d4FDC2d0892D98c8cDe2Ed5Bde3a47f4eB3545'),
     'import.meta.env.VITE_NETWORK_ID': JSON.stringify('5777')
   }
+=======
+  // Environment variables are loaded from .env file automatically
+  // DO NOT hardcode values here - use .env file instead
+>>>>>>> master
 });

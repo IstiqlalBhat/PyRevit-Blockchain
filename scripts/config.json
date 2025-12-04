@@ -1,0 +1,24 @@
+{
+  "_comment": "Configuration file for PyRevit extension and Web3 bridge scripts",
+  "_warning": "Do not store sensitive data here! Use .env for secrets.",
+  
+  "paths": {
+    "project_root": "C:\\Users\\istiq\\Downloads\\PyRevit-Blockchain-main",
+    "emissions_output": "C:\\Users\\istiq\\Downloads\\PyRevit-Blockchain-main\\output\\emissions.json",
+    "python_executable": "C:\\Users\\istiq\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "web3_script": "C:\\Users\\istiq\\Downloads\\PyRevit-Blockchain-main\\scripts\\my_web3_script.py",
+    "contract_abi": "contract_abi.json"
+  },
+  
+  "ethereum": {
+    "provider_url": "http://127.0.0.1:7545",
+    "network_id": 5777,
+    "gas_price_gwei": 10
+  },
+  
+  "security": {
+    "enable_data_integrity_check": true,
+    "hash_algorithm": "sha256",
+    "protect_emissions_file": true
+  }
+}
