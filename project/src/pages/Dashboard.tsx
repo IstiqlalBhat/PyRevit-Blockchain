@@ -180,9 +180,6 @@ const Dashboard: React.FC = () => {
             <div className="p-3 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 text-white shadow-green">
               <BarChart3 className="h-6 w-6" />
             </div>
-            <span className="badge-success">
-              <ArrowUpRight className="w-3 h-3 mr-1" /> +12%
-            </span>
           </div>
           <h3 className="text-slate-500 text-sm font-medium relative z-10">Total Emissions</h3>
           <div className="mt-2 flex items-baseline relative z-10">
