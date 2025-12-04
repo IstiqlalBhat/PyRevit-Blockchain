@@ -14,7 +14,7 @@
 
 body {
   @apply bg-slate-50 text-slate-900 font-sans antialiased;
-  background-image: 
+  background-image:
     radial-gradient(ellipse 80% 50% at 20% -20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse 60% 40% at 80% 0%, rgba(34, 197, 94, 0.12) 0%, transparent 50%),
     radial-gradient(ellipse 50% 30% at 90% 100%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
@@ -28,16 +28,17 @@ body {
 @layer components {
   .glass-card {
     @apply bg-white/70 backdrop-blur-xl rounded-2xl border border-white/60;
-    box-shadow: 
+    box-shadow:
       0 4px 24px rgba(0, 0, 0, 0.06),
       0 1px 2px rgba(0, 0, 0, 0.04),
       inset 0 1px 0 rgba(255, 255, 255, 0.6);
   }
-  
+
   .glass-card-hover {
     @apply hover:bg-white/80 hover:-translate-y-1 transition-all duration-300 ease-out;
+
     &:hover {
-      box-shadow: 
+      box-shadow:
         0 12px 40px rgba(16, 185, 129, 0.12),
         0 4px 12px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -46,22 +47,20 @@ body {
 
   .glass-card-green {
     @apply bg-gradient-to-br from-primary-50/80 to-white/70 backdrop-blur-xl rounded-2xl border border-primary-100/50;
-    box-shadow: 
+    box-shadow:
       0 4px 24px rgba(16, 185, 129, 0.1),
       0 1px 2px rgba(0, 0, 0, 0.04),
       inset 0 1px 0 rgba(255, 255, 255, 0.6);
   }
-  
+
   .glass-button {
     @apply px-4 py-2 rounded-xl font-medium transition-all duration-300 backdrop-blur-sm;
   }
-  
+
   .glass-input {
-    @apply bg-white/60 backdrop-blur-sm border border-slate-200/80 rounded-xl px-4 py-2.5 
-           focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-300 
-           placeholder-slate-400 transition-all duration-200;
+    @apply bg-white/60 backdrop-blur-sm border border-slate-200/80 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-300 placeholder-slate-400 transition-all duration-200;
   }
-  
+
   .glass-select {
     @apply glass-input pr-10 appearance-none bg-no-repeat cursor-pointer;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23059669' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
@@ -73,18 +72,20 @@ body {
   .btn-primary {
     @apply px-6 py-2.5 font-semibold text-white rounded-xl transition-all duration-300;
     background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
-    box-shadow: 
+    box-shadow:
       0 4px 15px rgba(16, 185, 129, 0.35),
       0 1px 3px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
     &:hover {
       background: linear-gradient(135deg, #047857 0%, #059669 50%, #10b981 100%);
-      box-shadow: 
+      box-shadow:
         0 8px 25px rgba(16, 185, 129, 0.45),
         0 2px 4px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
       transform: translateY(-2px);
     }
+
     &:active {
       transform: translateY(0) scale(0.98);
     }
@@ -94,11 +95,12 @@ body {
   .theme-button {
     @apply px-6 py-2.5 font-semibold text-white rounded-xl transition-all duration-300;
     background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #10b981 100%);
-    box-shadow: 
+    box-shadow:
       0 4px 20px rgba(16, 185, 129, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
     &:hover {
-      box-shadow: 
+      box-shadow:
         0 8px 30px rgba(16, 185, 129, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -106,9 +108,7 @@ body {
   }
 
   .btn-secondary {
-    @apply bg-white text-slate-700 border border-slate-200 
-           hover:bg-slate-50 hover:border-primary-200 hover:text-primary-700
-           active:scale-95 transition-all duration-300 rounded-xl font-medium;
+    @apply bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-primary-200 hover:text-primary-700 active:scale-95 transition-all duration-300 rounded-xl font-medium;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
@@ -126,6 +126,7 @@ body {
   /* Hover Lift Effect */
   .hover-lift {
     @apply transition-all duration-300;
+
     &:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 30px rgba(16, 185, 129, 0.2);
@@ -144,6 +145,7 @@ body {
   /* Stat Card Variants */
   .stat-card-emerald {
     @apply relative overflow-hidden;
+
     &::before {
       content: '';
       @apply absolute inset-0 opacity-5;
@@ -153,6 +155,7 @@ body {
 
   .stat-card-green {
     @apply relative overflow-hidden;
+
     &::before {
       content: '';
       @apply absolute inset-0 opacity-5;
@@ -162,6 +165,7 @@ body {
 
   .stat-card-teal {
     @apply relative overflow-hidden;
+
     &::before {
       content: '';
       @apply absolute inset-0 opacity-5;
@@ -171,10 +175,41 @@ body {
 
   .stat-card-leaf {
     @apply relative overflow-hidden;
+
     &::before {
       content: '';
       @apply absolute inset-0 opacity-5;
       background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+    }
+  }
+
+  .stat-card-slate {
+    @apply relative overflow-hidden;
+
+    &::before {
+      content: '';
+      @apply absolute inset-0 opacity-5;
+      background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+    }
+  }
+
+  .stat-card-amber {
+    @apply relative overflow-hidden;
+
+    &::before {
+      content: '';
+      @apply absolute inset-0 opacity-5;
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    }
+  }
+
+  .stat-card-blue {
+    @apply relative overflow-hidden;
+
+    &::before {
+      content: '';
+      @apply absolute inset-0 opacity-5;
+      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
     }
   }
 
@@ -221,31 +256,66 @@ body {
 }
 
 /* Animation Utilities */
-.delay-75 { animation-delay: 75ms; }
-.delay-100 { animation-delay: 100ms; }
-.delay-150 { animation-delay: 150ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
 
 /* Staggered fade-in animation */
-.fade-in-stagger > * {
+.fade-in-stagger>* {
   @apply opacity-0;
   animation: fadeInStagger 0.5s ease-out forwards;
 }
 
-.fade-in-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-.fade-in-stagger > *:nth-child(2) { animation-delay: 0.2s; }
-.fade-in-stagger > *:nth-child(3) { animation-delay: 0.3s; }
-.fade-in-stagger > *:nth-child(4) { animation-delay: 0.4s; }
-.fade-in-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+.fade-in-stagger>*:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.fade-in-stagger>*:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.fade-in-stagger>*:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.fade-in-stagger>*:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.fade-in-stagger>*:nth-child(5) {
+  animation-delay: 0.5s;
+}
 
 @keyframes fadeInStagger {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -254,12 +324,10 @@ body {
 
 /* Shimmer loading effect */
 .shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(16, 185, 129, 0.05) 0%,
-    rgba(34, 197, 94, 0.1) 50%,
-    rgba(16, 185, 129, 0.05) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(16, 185, 129, 0.05) 0%,
+      rgba(34, 197, 94, 0.1) 50%,
+      rgba(16, 185, 129, 0.05) 100%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -267,6 +335,7 @@ body {
 /* Pulse ring animation for status indicators */
 .pulse-ring {
   @apply relative;
+
   &::after {
     content: '';
     @apply absolute inset-0 rounded-full;
@@ -280,6 +349,7 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+
   100% {
     transform: scale(2);
     opacity: 0;

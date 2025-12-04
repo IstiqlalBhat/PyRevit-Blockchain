@@ -357,17 +357,17 @@ const Analytics: React.FC = () => {
     {
       name: 'Concrete',
       value: stats.concreteVolume * CONCRETE_FACTOR,
-      fill: '#10b981' // Emerald-500
+      fill: '#64748b' // Slate-500
     },
     {
       name: 'CLT',
       value: stats.cltVolume * CLT_FACTOR,
-      fill: '#14b8a6' // Teal-500
+      fill: '#f59e0b' // Amber-500
     },
     {
       name: 'Steel',
       value: stats.steelVolume * STEEL_FACTOR,
-      fill: '#84cc16' // Lime-500
+      fill: '#3b82f6' // Blue-500
     }
   ];
 
@@ -423,8 +423,8 @@ const Analytics: React.FC = () => {
           value={stats.concreteVolume}
           unit="m³"
           icon={Sparkles}
-          gradient="stat-card-green"
-          iconColor="text-green-600"
+          gradient="stat-card-slate"
+          iconColor="text-slate-600"
           delay={0.1}
         />
         <StatCard
@@ -432,8 +432,8 @@ const Analytics: React.FC = () => {
           value={stats.cltVolume}
           unit="m³"
           icon={TreePine}
-          gradient="stat-card-teal"
-          iconColor="text-teal-600"
+          gradient="stat-card-amber"
+          iconColor="text-amber-600"
           delay={0.2}
         />
         <StatCard
@@ -441,8 +441,8 @@ const Analytics: React.FC = () => {
           value={stats.steelVolume}
           unit="m³"
           icon={Car}
-          gradient="stat-card-leaf"
-          iconColor="text-lime-600"
+          gradient="stat-card-blue"
+          iconColor="text-blue-600"
           delay={0.3}
         />
       </div>
@@ -470,16 +470,16 @@ const Analytics: React.FC = () => {
             >
               <defs>
                 <linearGradient id="concreteGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#10b981" stopOpacity={0.9} />
-                  <stop offset="100%" stopColor="#059669" stopOpacity={0.7} />
+                  <stop offset="0%" stopColor="#94a3b8" stopOpacity={0.9} />
+                  <stop offset="100%" stopColor="#64748b" stopOpacity={0.7} />
                 </linearGradient>
                 <linearGradient id="cltGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2dd4bf" stopOpacity={0.9} />
-                  <stop offset="100%" stopColor="#14b8a6" stopOpacity={0.7} />
+                  <stop offset="0%" stopColor="#fbbf24" stopOpacity={0.9} />
+                  <stop offset="100%" stopColor="#d97706" stopOpacity={0.7} />
                 </linearGradient>
                 <linearGradient id="steelGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#a3e635" stopOpacity={0.9} />
-                  <stop offset="100%" stopColor="#84cc16" stopOpacity={0.7} />
+                  <stop offset="0%" stopColor="#60a5fa" stopOpacity={0.9} />
+                  <stop offset="100%" stopColor="#2563eb" stopOpacity={0.7} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.6} />
@@ -511,7 +511,7 @@ const Analytics: React.FC = () => {
                   <Cell
                     key={`cell-${index}`}
                     fill={entry.fill}
-                    style={{ filter: 'drop-shadow(0 4px 6px rgba(16, 185, 129, 0.15))' }}
+                    style={{ filter: `drop-shadow(0 4px 6px ${index === 0 ? '#64748b' : index === 1 ? '#f59e0b' : '#3b82f6'}40)` }}
                   />
                 ))}
               </Bar>

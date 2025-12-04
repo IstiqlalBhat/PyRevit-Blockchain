@@ -47,19 +47,19 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
       name: 'Concrete',
       volume: concreteVolume,
       emissions: concreteVolume * CONCRETE_FACTOR,
-      color: '#059669' // Emerald-600 - Primary green
+      color: '#64748b' // Slate-500 - Industrial
     },
     {
       name: 'CLT',
       volume: cltVolume,
       emissions: cltVolume * CLT_FACTOR,
-      color: '#14b8a6' // Teal-500 - Nature accent
+      color: '#f59e0b' // Amber-500 - Wood/Warm
     },
     {
       name: 'Steel',
       volume: steelVolume,
       emissions: steelVolume * STEEL_FACTOR,
-      color: '#84cc16' // Lime-500 - Leaf green
+      color: '#3b82f6' // Blue-500 - Metal/Cool
     }
   ];
 
@@ -80,16 +80,16 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
         <defs>
           {/* Gradient definitions for bars */}
           <linearGradient id="concreteGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#059669" stopOpacity={0.7} />
+            <stop offset="0%" stopColor="#94a3b8" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#64748b" stopOpacity={0.7} />
           </linearGradient>
           <linearGradient id="cltGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2dd4bf" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#14b8a6" stopOpacity={0.7} />
+            <stop offset="0%" stopColor="#fbbf24" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#d97706" stopOpacity={0.7} />
           </linearGradient>
           <linearGradient id="steelGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#a3e635" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#84cc16" stopOpacity={0.7} />
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#2563eb" stopOpacity={0.7} />
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.5} />
@@ -120,7 +120,7 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
         />
         <Tooltip
           content={<CustomTooltip />}
-          cursor={{ fill: 'rgba(16, 185, 129, 0.05)', radius: 4 }}
+          cursor={{ fill: 'rgba(148, 163, 184, 0.1)', radius: 4 }}
         />
         <Legend
           wrapperStyle={{ paddingTop: '20px' }}
@@ -135,10 +135,10 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
           animationDuration={1500}
         >
           {data.map((entry, index) => (
-            <Cell 
-              key={`cell-volume-${index}`} 
+            <Cell
+              key={`cell-volume-${index}`}
               fill={`url(#${index === 0 ? 'concreteGradient' : index === 1 ? 'cltGradient' : 'steelGradient'})`}
-              style={{ filter: 'drop-shadow(0 2px 4px rgba(16, 185, 129, 0.15))' }}
+              style={{ filter: `drop-shadow(0 2px 4px ${entry.color}40)` }}
             />
           ))}
         </Bar>
@@ -151,10 +151,10 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
           animationBegin={300}
         >
           {data.map((entry, index) => (
-            <Cell 
-              key={`cell-emission-${index}`} 
+            <Cell
+              key={`cell-emission-${index}`}
               fill={entry.color}
-              style={{ filter: 'drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2))' }}
+              style={{ filter: `drop-shadow(0 2px 4px ${entry.color}40)` }}
             />
           ))}
         </Bar>
