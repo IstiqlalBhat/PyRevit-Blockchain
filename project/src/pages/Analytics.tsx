@@ -41,12 +41,15 @@ interface TargetModalProps {
 const DEFAULT_TARGET = 5000; // Default 5000 tCO₂e
 
 const TargetModal: React.FC<TargetModalProps> = ({ isOpen, onClose, currentTarget, onSave }) => {
-  const [targetValue, setTargetValue] = useState<string>(currentTarget.toString());
+  const { convert, label, unit } = useEmissionUnit();
+  // Initialize with converted value
+  const [targetValue, setTargetValue] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setTargetValue(currentTarget.toString());
-  }, [currentTarget]);
+    // Convert the stored kg value to the current unit for display
+    setTargetValue(convert(currentTarget).toString());
+  }, [currentTarget, unit, convert]);
 
   const handleSave = () => {
     const value = parseFloat(targetValue);
@@ -54,7 +57,16 @@ const TargetModal: React.FC<TargetModalProps> = ({ isOpen, onClose, currentTarge
       setError('Please enter a valid positive number');
       return;
     }
-    onSave(value);
+
+    // Convert back to kg for storage
+    let valueInKg = value;
+    if (unit === 't') {
+      valueInKg = value * 1000;
+    } else if (unit === 'kt') {
+      valueInKg = value * 1_000_000;
+    }
+
+    onSave(valueInKg);
   };
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -96,16 +108,16 @@ const TargetModal: React.FC<TargetModalProps> = ({ isOpen, onClose, currentTarge
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">
-              Target Emissions (tCO₂e)
+              Target Emissions ({label})
             </label>
             <input
               type="number"
               value={targetValue}
               onChange={handleInputChange}
               min="0"
-              step="1"
+              step="any"
               className="glass-input w-full"
-              placeholder="Enter target value"
+              placeholder={`Enter target value in ${unit}`}
             />
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </div>
@@ -136,23 +148,32 @@ const CLT_FACTOR = 250;
 const STEEL_FACTOR = 2000;
 
 // Custom Tooltip Component
+// Custom Tooltip Component
 const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
+  const { convert, label: unitLabel } = useEmissionUnit();
+
   if (active && payload && payload.length) {
     return (
-      <div className="glass-card p-4 shadow-lg border border-primary-100/50 !bg-white/95 backdrop-blur-xl">
-        <p className="font-bold text-slate-800 mb-2">{label}</p>
-        {payload.map((entry: any, index: number) => (
-          <div key={index} className="flex items-center justify-between gap-4 mb-1">
-            <span className="text-sm text-slate-600 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ backgroundColor: entry.color || entry.fill }}></span>
-              {entry.name}:
-            </span>
-            <span className="text-sm font-semibold text-slate-800">
-              {formatNum(entry.value)}
-              {entry.name === 'Volume' ? ' m³' : ''}
-            </span>
-          </div>
-        ))}
+      <div className="glass-card p-2.5 shadow-lg border border-primary-100/50 !bg-white/95 backdrop-blur-xl min-w-[160px]">
+        <p className="font-bold text-slate-800 mb-1.5 text-sm">{label}</p>
+        {payload.map((entry: any, index: number) => {
+          const isVolume = entry.name === 'Volume' || entry.name.includes('Volume');
+          const value = isVolume ? entry.value : convert(entry.value);
+          const unit = isVolume ? ' m³' : ` ${unitLabel}`;
+
+          return (
+            <div key={index} className="flex items-center justify-between gap-3 mb-0.5">
+              <span className="text-xs text-slate-600 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full shadow-sm" style={{ backgroundColor: entry.color || entry.fill }}></span>
+                {entry.name}:
+              </span>
+              <span className="text-xs font-semibold text-slate-800">
+                {formatNum(value)}
+                {unit}
+              </span>
+            </div>
+          );
+        })}
       </div>
     );
   }

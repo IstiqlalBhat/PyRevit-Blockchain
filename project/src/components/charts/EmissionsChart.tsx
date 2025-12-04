@@ -9,22 +9,30 @@ interface EmissionsChartProps {
 }
 
 const CustomTooltip = ({ active, payload, label }: any) => {
+  const { convert, label: unitLabel } = useEmissionUnit();
+
   if (active && payload && payload.length) {
     return (
-      <div className="glass-card p-4 shadow-lg border border-primary-100/50 !bg-white/95 backdrop-blur-xl">
-        <p className="font-bold text-slate-800 mb-2">{label}</p>
-        {payload.map((entry: any, index: number) => (
-          <div key={index} className="flex items-center justify-between gap-4 mb-1">
-            <span className="text-sm text-slate-600 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ backgroundColor: entry.color }}></span>
-              {entry.name}:
-            </span>
-            <span className="text-sm font-semibold text-slate-800">
-              {entry.value.toLocaleString(undefined, { maximumFractionDigits: 1 })}
-              {entry.name.includes('Volume') ? ' m³' : ''}
-            </span>
-          </div>
-        ))}
+      <div className="glass-card p-2.5 shadow-lg border border-primary-100/50 !bg-white/95 backdrop-blur-xl min-w-[160px]">
+        <p className="font-bold text-slate-800 mb-1.5 text-sm">{label}</p>
+        {payload.map((entry: any, index: number) => {
+          const isVolume = entry.name.includes('Volume');
+          const value = isVolume ? entry.value : convert(entry.value);
+          const unit = isVolume ? ' m³' : ` ${unitLabel}`;
+
+          return (
+            <div key={index} className="flex items-center justify-between gap-3 mb-0.5">
+              <span className="text-xs text-slate-600 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full shadow-sm" style={{ backgroundColor: entry.color }}></span>
+                {entry.name}:
+              </span>
+              <span className="text-xs font-semibold text-slate-800">
+                {value.toLocaleString(undefined, { maximumFractionDigits: 1 })}
+                {unit}
+              </span>
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -64,10 +72,11 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
   ];
 
   const formatYAxis = (value: number): string => {
-    if (value >= 1000) {
-      return `${(value / 1000).toFixed(1)}k`;
+    const converted = convert(value);
+    if (converted >= 1000) {
+      return `${(converted / 1000).toFixed(1)}k`;
     }
-    return value.toString();
+    return converted.toString();
   };
 
   return (
@@ -75,7 +84,8 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
       <BarChart
         data={data}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        barSize={48}
+        barSize={32}
+        barGap={12}
       >
         <defs>
           {/* Gradient definitions for bars */}
@@ -103,7 +113,7 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
         <YAxis
           yAxisId="left"
           orientation="left"
-          tickFormatter={formatYAxis}
+          tickFormatter={(value) => value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value.toString()}
           tick={{ fill: '#64748b', fontSize: 12 }}
           axisLine={false}
           tickLine={false}
@@ -131,14 +141,17 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
           yAxisId="left"
           dataKey="volume"
           name="Volume (m³)"
-          radius={[8, 8, 0, 0]}
+          radius={[4, 4, 0, 0]}
           animationDuration={1500}
         >
           {data.map((entry, index) => (
             <Cell
               key={`cell-volume-${index}`}
-              fill={`url(#${index === 0 ? 'concreteGradient' : index === 1 ? 'cltGradient' : 'steelGradient'})`}
-              style={{ filter: `drop-shadow(0 2px 4px ${entry.color}40)` }}
+              fill={entry.color}
+              fillOpacity={0.3}
+              stroke={entry.color}
+              strokeWidth={1}
+              style={{ filter: `drop-shadow(0 2px 4px ${entry.color}20)` }}
             />
           ))}
         </Bar>
@@ -146,15 +159,15 @@ const EmissionsChart: React.FC<EmissionsChartProps> = ({
           yAxisId="right"
           dataKey="emissions"
           name={`Emissions (${label})`}
-          radius={[8, 8, 0, 0]}
+          radius={[4, 4, 0, 0]}
           animationDuration={1500}
           animationBegin={300}
         >
           {data.map((entry, index) => (
             <Cell
               key={`cell-emission-${index}`}
-              fill={entry.color}
-              style={{ filter: `drop-shadow(0 2px 4px ${entry.color}40)` }}
+              fill={`url(#${index === 0 ? 'concreteGradient' : index === 1 ? 'cltGradient' : 'steelGradient'})`}
+              style={{ filter: `drop-shadow(0 4px 6px ${entry.color}40)` }}
             />
           ))}
         </Bar>
